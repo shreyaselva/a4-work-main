@@ -24,19 +24,28 @@ struct vect {
 
 /** Construct a new empty vector. */
 vect_t *vect_new() {
+  //allocates memory  and checks that succeeded
+  vect_t *v = malloc(sizeof(vect_t));
+  assert(v != NULL);
 
-  /* [TODO] Complete the function */
-
-  vect_t *v = NULL;
+  //allocate memory,intialize vector size = 0, set capacity using vect.h intial capacity
+  v->data = malloc(v->capacity * sizeof(char *));
+  assert(v->data != NULL);
+  v->size = 0;
+  v->capacity = VECT_INITIAL_CAPACITY;
 
   return v;
 }
 
 /** Delete the vector, freeing all memory it occupies. */
 void vect_delete(vect_t *v) {
-
-  /* [TODO] Complete the function */
-
+  for (unsigned int i = 0; i < v->size; i++) {
+  //free individual string memory
+  free (v->data[i]);
+}
+  //free pointers and container memory
+  free(v->data);
+  free(v);
 }
 
 /** Get the element at the given index. */
@@ -44,9 +53,8 @@ const char *vect_get(vect_t *v, unsigned int idx) {
   assert(v != NULL);
   assert(idx < v->size);
 
-  /* [TODO] Complete the function */
-
-  return NULL;
+//return string in vector array
+  return v->data[idx];
 }
 
 /** Get a copy of the element at the given index. The caller is responsible
@@ -55,16 +63,22 @@ char *vect_get_copy(vect_t *v, unsigned int idx) {
   assert(v != NULL);
   assert(idx < v->size);
 
-  /* [TODO] Complete the function */
+  //copy at given index, ensure not null
+  char *copy = strdup(v->data[idx]);
+  assert(copy != NULL);
 
-  return NULL;
+  return copy;
 }
+
 /** Set the element at the given index. */
 void vect_set(vect_t *v, unsigned int idx, const char *elt) {
   assert(v != NULL);
   assert(idx < v->size);
 
-  /* [TODO] Complete the function */
+  //free old string at given index
+  free(v->data[idx]);
+  v->data[idx] = strdup(elt);
+  assert(v->data[idx] != NULL);
 
 }
 
@@ -72,7 +86,23 @@ void vect_set(vect_t *v, unsigned int idx, const char *elt) {
 void vect_add(vect_t *v, const char *elt) {
   assert(v != NULL);
 
-  /* [TODO] Complete the function */
+//if capacity is full, use growth factor  
+if(v->size == v->capacity) {
+  unsigned int new_capacity = v->capacity * VECT_GROWTH_FACTOR;
+//reallocate array for new capacity, ensure not null 
+  char **new_data = realloc(v->data, new_capacity * sizeof(char *));
+  assert(new_data != NULL);
+
+//update data and capacity to new size
+  v->data = new_data;
+  v->capacity = new_capacity;
+}
+
+v->data[v->size] = strdup(elt);
+assert(v->data[v->size] != NULL);
+
+//update size to new addition
+v->size++;
 
 }
 
@@ -80,7 +110,9 @@ void vect_add(vect_t *v, const char *elt) {
 void vect_remove_last(vect_t *v) {
   assert(v != NULL);
 
-  /* [TODO] Complete the function */
+  //find last element, free memory
+  v->size--;
+  free(v->data[v->size]);
 
 }
 
@@ -88,17 +120,13 @@ void vect_remove_last(vect_t *v) {
 unsigned int vect_size(vect_t *v) {
   assert(v != NULL);
 
-  /* [TODO] Complete the function */
-
-  return 0;
+  return v->size;
 }
 
 /** The maximum number of items the vector can hold before it has to grow. */
 unsigned int vect_current_capacity(vect_t *v) {
   assert(v != NULL);
 
-  /* [TODO] Complete the function */
-
-  return 0;
+  return v->capacity;
 }
 
