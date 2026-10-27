@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "vect.h"
+#include "../vector/vect.h"
 #include "tokens.h"
 
 const int BUFFER_SIZE = 1024;
