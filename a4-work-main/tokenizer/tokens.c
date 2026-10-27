@@ -66,5 +66,11 @@ else {
 }
   i++;
 }
-return tokens;
+
+if (buf_idx > 0) {
+  buffer[buf_idx} = '\0';
+  vect_add(tokens, buffer);
+ }
+
+ return tokens;
 }
