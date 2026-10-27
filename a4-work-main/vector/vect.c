@@ -29,10 +29,10 @@ vect_t *vect_new() {
   assert(v != NULL);
 
   //allocate memory,intialize vector size = 0, set capacity using vect.h intial capacity
-  v->data = malloc(v->capacity * sizeof(char *));
-  assert(v->data != NULL);
   v->size = 0;
   v->capacity = VECT_INITIAL_CAPACITY;
+  v->data = malloc(v->capacity * sizeof(char *));
+  assert(v->data != NULL);
 
   return v;
 }
