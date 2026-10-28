@@ -9,10 +9,10 @@
  * IMPORTANT: The initial capacity and the vector's growth factor should be 
  * expressed in terms of the configuration constants in vect.h
  */
+#define _POSIX_C_SOURCE 200809L
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#define _POSIX_C_SOURCE 200809L
 #include "vect.h"
 
 /** Main data structure for the vector. */
