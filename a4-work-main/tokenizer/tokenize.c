@@ -5,7 +5,7 @@
 
 #define BUFFER_SIZE 1024
 
-/*int main(void) {
+int main(void) {
     char buffer[BUFFER_SIZE];
 
     if (fgets(buffer, BUFFER_SIZE, stdin) != NULL) {
@@ -19,4 +19,4 @@
     }
     return 0;
 }
-*/
+
